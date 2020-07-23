@@ -1,10 +1,19 @@
-import React from 'react';
-import './App.scss';
+import React from "react";
+
+import "./App.scss";
+import Header from "./Components/Header/Header";
+import Question from "./Components/Question/Question";
+import Answers from "./Components/Answers/Answers";
+import Description from "./Components/Description/Description";
 
 function App() {
   return (
     <div className="App">
-      <div className="songbird">Songbird app</div>
+      <Header />
+      <Question />
+      <Answers />
+      <Description />
+      
     </div>
   );
 }
