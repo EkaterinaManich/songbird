@@ -1,3 +1,18 @@
 .App {
+  display: flex;
+  justify-content: center;
+}
+
+.content-wrapper {
+  width: 90%;
+}
+
+.app-answers-description {
+  display: flex;
+}
+
+.next-level {
+  width: 100%;
   text-align: center;
+  margin-top: 15px;
 }

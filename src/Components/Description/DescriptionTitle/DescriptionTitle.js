@@ -2,10 +2,10 @@ import React from 'react';
 
 import './DescriptionTitle.scss';
 
-export default function DescriptionTitle() {
+export default function DescriptionTitle(props) {
     return (
         <div className="DescriptionTitle">
-            Hello from DescriptionTitle!
+            {props.name}
         </div>
     )
 }

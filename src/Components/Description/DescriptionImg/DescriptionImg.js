@@ -2,10 +2,8 @@ import React from 'react';
 
 import './DescriptionImg.scss';
 
-export default function DescriptionImg() {
+export default function DescriptionImg(props) {
     return (
-        <div className="DescriptionImg">
-            Hello from DescriptionImg!
-        </div>
+        <img className="DescriptionImg" width="200px" height="150px" src={props.image} alt="bird" />
     )
 }

@@ -2,10 +2,8 @@ import React from 'react';
 
 import './DescriptionAudio.scss';
 
-export default function DescriptionAudio() {
+export default function DescriptionAudio(props) {
     return (
-        <div className="DescriptionAudio">
-            Hello from DescriptionAudio!
-        </div>
+        <audio className="DescriptionAudio" src={props.audio} controls></audio>
     )
 }
