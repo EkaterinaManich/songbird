@@ -5,12 +5,14 @@ import Logo from './Logo/Logo';
 import Score from './Score/Score';
 import ListOfQuestions from './ListOfQuestions/ListOfQuestions';
 
-function Header() {
+function Header(props) {
     return (
         <div className="Header">
-            <Logo />
-            <Score />
-            <ListOfQuestions />
+            <div className="wrapper-logo-and-score">
+                <Logo />
+                <Score score={props.score} scoreHandler={props.scoreHandler} />
+            </div>
+            <ListOfQuestions data={props.data} />
         </div>
     )
 }

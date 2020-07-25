@@ -2,10 +2,8 @@ import React from 'react';
 
 import './QuestionImg.scss';
 
-export default function QuestionImg() {
+export default function QuestionImg(props) {
     return (
-        <div className='QuestionImg'>
-         Hello from QuestionImg!   
-        </div>
+        <img className='QuestionImg' width="200px" height="150px" src={props.image} alt="bird" />
     )
 }
