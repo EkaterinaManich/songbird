@@ -10,9 +10,9 @@ function Header(props) {
         <div className="Header">
             <div className="wrapper-logo-and-score">
                 <Logo />
-                <Score score={props.score} scoreHandler={props.scoreHandler} />
+                <Score score={props.score} />
             </div>
-            <ListOfQuestions data={props.data} />
+            <ListOfQuestions data={props.data} currentArrayWithBirds={props.currentArrayWithBirds} />
         </div>
     )
 }

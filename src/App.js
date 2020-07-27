@@ -9,9 +9,10 @@ import Answers from "./Components/Answers/Answers";
 import Description from "./Components/Description/Description";
 
 export default class App extends Component {
+  
   state = {
+    isNextLevelButtonDisabled: true,
     score: 0,
-    points: 5,
     question: {
       id: data[0].id,
       species: data[0].species,
@@ -22,6 +23,7 @@ export default class App extends Component {
     },
     currentArrayWithBirds: 0,
     birdsData: data[0],
+    isAnswerCanPicked: true,
     description: {
       placeholerText: "Послушайте плеер. Выберите птицу из списка",
       isBirdPicked: false,
@@ -30,16 +32,22 @@ export default class App extends Component {
   };
 
   componentDidMount() {
+    // add .answerColorState to all objects
+    for(let i = 0; i < data.length; i++) {
+      data[i] = this.addAnswerColorState(data[i]);
+    }
+
     let randNumber = this.takeRandomNumber(0, this.state.birdsData.length - 1);
+    
     this.setState({
       ...this.state,
-      birdsData: this.addAnswerColorState(this.state.birdsData),
+      birdsData: data[0],
       question: data[0][randNumber],
     });
   }
 
   addAnswerColorState = (arr) => {
-    return arr.map((item) => {
+    return arr.map(item => {
       return {
         ...item,
         answerColorState: "secondary",
@@ -69,28 +77,25 @@ export default class App extends Component {
     });
   };
 
-  addScore = () => {
-    this.setState({
-      ...this.state,
-      score: this.state.score + this.state.points,
-    });
-  };
-
-  reducePoints = () => {
-    this.setState({
-      ...this.state,
-      points: this.state.points - 1,
-    });
-  };
-
   changeBirdsData = () => {
     if (data.length < this.state.currentArrayWithBirds + 2) {
       return;
     }
+    
+    let randNumber = this.takeRandomNumber(0, this.state.birdsData.length - 1);
+
     this.setState({
       ...this.state,
+      question: data[this.state.currentArrayWithBirds + 1][randNumber],
+      description: {
+        placeholerText: "Послушайте плеер. Выберите птицу из списка",
+        isBirdPicked: false,
+        bird: null,
+      },
       currentArrayWithBirds: this.state.currentArrayWithBirds + 1,
       birdsData: data[this.state.currentArrayWithBirds + 1],
+      isNextLevelButtonDisabled: true,
+      isAnswerCanPicked: true,
     });
   };
 
@@ -108,6 +113,34 @@ export default class App extends Component {
     });
   };
 
+  defineIsAnswerPickedCorrect = () => {
+    for (let obj of this.state.birdsData) {
+      if (obj.answerColorState === 'success') {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  defineScorePoints = () => {
+    let resultPoints = 5;
+    for (let obj of this.state.birdsData) {
+      if(obj.answerColorState === 'danger') {
+        resultPoints -= 1;
+      }
+    }
+    return resultPoints;
+  }
+
+  endLevelWithScore = (scorePoints) => {
+    this.setState({
+      ...this.state,
+      isAnswerCanPicked: false,
+      isNextLevelButtonDisabled: false,
+      score: this.state.score + scorePoints,
+    })
+  }
+
   render() {
     return (
       <div className="App">
@@ -115,18 +148,23 @@ export default class App extends Component {
           <Header
             data={data}
             score={this.state.score}
-            scoreHandler={this.addScore}
+            currentArrayWithBirds={this.state.currentArrayWithBirds}
           />
-          <Question questionData={this.state.question} />
+          <Question questionData={this.state.question} isAnswerCanPicked={this.state.isAnswerCanPicked} />
           <div className="app-answers-description">
             <Answers
+              endLevelWithScore={this.endLevelWithScore}
+              isNextLevelButtonDisabled={this.state.isNextLevelButtonDisabled}
+              defineScorePoints={this.defineScorePoints}
+              defineIsAnswerPickedCorrect={this.defineIsAnswerPickedCorrect}
               birdsData={this.state.birdsData}
+              isAnswerCanPicked={this.state.isAnswerCanPicked}
               pickBird={this.pickBird}
               changeAnswerColorState={this.changeAnswerColorState}
             />
             <Description description={this.state.description} />
           </div>
-          <button type="button" onClick={this.changeBirdsData} className="next-level btn btn-primary">Change Birds data</button>
+          <button type="button" onClick={this.changeBirdsData} className={`next-level btn btn-${this.state.isNextLevelButtonDisabled ? 'secondary' : 'primary'}`} disabled={this.state.isNextLevelButtonDisabled}>Change Birds data</button>
         </div>
       </div>
     );

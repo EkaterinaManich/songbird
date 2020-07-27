@@ -8,8 +8,8 @@ import QuestionAudio from "./QuestionAudio/QuestionAudio";
 export default function Question(props) {
     return (
         <div className="Question">
-            <QuestionImg image={props.questionData.image} />
-            <QuestionTitle name={props.questionData.name} />
+            <QuestionImg isAnswerCanPicked={props.isAnswerCanPicked} image={props.questionData.image} />
+            <QuestionTitle isAnswerCanPicked={props.isAnswerCanPicked} name={props.questionData.name} />
             <QuestionAudio audio={props.questionData.audio} />
         </div>
     );

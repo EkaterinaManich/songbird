@@ -5,7 +5,7 @@ import './QuestionTitle.scss';
 export default function QuestionTitle(props) {
     return (
         <div className='QuestionTitle'>
-            {props.name}
+            {props.isAnswerCanPicked ? '**********' : props.name}
         </div>
     )
 }
