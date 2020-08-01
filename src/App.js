@@ -9,27 +9,30 @@ import Answers from "./Components/Answers/Answers";
 import Description from "./Components/Description/Description";
 
 export default class App extends Component {
-  
-  state = {
-    isNextLevelButtonDisabled: true,
-    score: 0,
-    question: {
-      id: data[0].id,
-      species: data[0].species,
-      description: data[0].description,
-      image: data[0].image,
-      name: data[0].name,
-      audio: data[0].audio,
-    },
-    currentArrayWithBirds: 0,
-    birdsData: data[0],
-    isAnswerCanPicked: true,
-    description: {
-      placeholerText: "Послушайте плеер. Выберите птицу из списка",
-      isBirdPicked: false,
-      bird: null,
-    },
-  };
+  constructor() {
+    super();
+
+    this.state = {
+      isNextLevelButtonDisabled: true,
+      score: 0,
+      question: {
+        id: data[0].id,
+        species: data[0].species,
+        description: data[0].description,
+        image: data[0].image,
+        name: data[0].name,
+        audio: data[0].audio,
+      },
+      currentArrayWithBirds: 0,
+      birdsData: data[0],
+      isAnswerCanPicked: true,
+      description: {
+        placeholerText: "Послушайте плеер. Выберите птицу из списка",
+        isBirdPicked: false,
+        bird: null,
+      },
+    };
+  }
 
   componentDidMount() {
     // add .answerColorState to all objects
