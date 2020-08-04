@@ -1,10 +1,15 @@
 import React from 'react';
 import ListGroup from 'react-bootstrap/ListGroup'
 
-// import Answer from './Answer/Answer';
+import successAudio from '../../assets/audio/success-notification.wav';
+import failedAudio from '../../assets/audio/failed-notification.wav';
 import './Answers.scss';
 
 export default function Answers(props) {
+
+    const successNotification = new Audio(successAudio);
+    const failedNotification = new Audio(failedAudio);
+
     return (
             <ListGroup className="Answers" as="ul">
                 {props.birdsData.map(item => {
@@ -14,16 +19,17 @@ export default function Answers(props) {
                             key={item.id}
                             onClick={() => {
                                 if (props.isAnswerCanPicked) {
-                                    new Promise((resolve, reject) => {
-                                        props.pickBird(item);
-                                        resolve();
-                                    }).then(() => {
-                                        props.changeAnswerColorState(item);
-                                    }).then(() => {
+                                    async function pickAnswer() {
+                                        await props.pickBird(item);
+                                        await props.changeAnswerColorState(item);
                                         if (props.defineIsAnswerPickedCorrect()) {
-                                            props.endLevelWithScore(props.defineScorePoints());
+                                            await props.endLevelWithScore(props.defineScorePoints());
+                                            successNotification.play();
+                                        } else {
+                                            failedNotification.play();
                                         }
-                                    })
+                                    }
+                                    pickAnswer();
                                 }
                             }}
                         >
