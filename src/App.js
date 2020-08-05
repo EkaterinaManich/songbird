@@ -7,14 +7,19 @@ import Header from "./Components/Header/Header";
 import Question from "./Components/Question/Question";
 import Answers from "./Components/Answers/Answers";
 import Description from "./Components/Description/Description";
+import GameOver from "./Components/GameOver/GameOver";
+import winAudio from './assets/audio/win-notification.wav';
 
 export default class App extends Component {
   constructor() {
     super();
 
+    this.winNotification = new Audio(winAudio);
+
     this.state = {
       isNextLevelButtonDisabled: true,
       score: 0,
+      maxResultPointsForQuestion: 5,
       question: {
         id: data[0].id,
         species: data[0].species,
@@ -26,6 +31,7 @@ export default class App extends Component {
       currentArrayWithBirds: 0,
       birdsData: data[0],
       isAnswerCanPicked: true,
+      isGameOver: false,
       description: {
         placeholerText: "Послушайте плеер. Выберите птицу из списка",
         isBirdPicked: false,
@@ -80,9 +86,17 @@ export default class App extends Component {
     });
   };
 
+  setGameOver = () => {
+    this.setState({
+      ...this.state,
+      isGameOver: true,
+    })
+  }
+
   changeBirdsData = () => {
     if (data.length < this.state.currentArrayWithBirds + 2) {
-      return;
+      this.winNotification.play();
+      return this.setGameOver();
     }
     
     let randNumber = this.takeRandomNumber(0, this.state.birdsData.length - 1);
@@ -126,7 +140,7 @@ export default class App extends Component {
   }
 
   defineScorePoints = () => {
-    let resultPoints = 5;
+    let resultPoints = this.state.maxResultPointsForQuestion;
     for (let obj of this.state.birdsData) {
       if(obj.answerColorState === 'danger') {
         resultPoints -= 1;
@@ -144,6 +158,30 @@ export default class App extends Component {
     })
   }
 
+  startGameFromBeginning = () => {
+
+    let randNumber = this.takeRandomNumber(0, this.state.birdsData.length - 1);
+
+    this.setState({
+      isNextLevelButtonDisabled: true,
+      score: 0,
+      question: data[0][randNumber],
+      currentArrayWithBirds: 0,
+      birdsData: data[0],
+      isAnswerCanPicked: true,
+      isGameOver: false,
+      description: {
+        placeholerText: "Послушайте плеер. Выберите птицу из списка",
+        isBirdPicked: false,
+        bird: null,
+      }
+    })
+  }
+
+  defineMaxScore = () => {
+    return data.length * this.state.maxResultPointsForQuestion;
+  }
+
   render() {
     return (
       <div className="App">
@@ -153,21 +191,34 @@ export default class App extends Component {
             score={this.state.score}
             currentArrayWithBirds={this.state.currentArrayWithBirds}
           />
-          <Question questionData={this.state.question} isAnswerCanPicked={this.state.isAnswerCanPicked} />
-          <div className="app-answers-description">
-            <Answers
-              endLevelWithScore={this.endLevelWithScore}
-              isNextLevelButtonDisabled={this.state.isNextLevelButtonDisabled}
-              defineScorePoints={this.defineScorePoints}
-              defineIsAnswerPickedCorrect={this.defineIsAnswerPickedCorrect}
-              birdsData={this.state.birdsData}
-              isAnswerCanPicked={this.state.isAnswerCanPicked}
-              pickBird={this.pickBird}
-              changeAnswerColorState={this.changeAnswerColorState}
-            />
-            <Description description={this.state.description} />
-          </div>
-          <button type="button" onClick={this.changeBirdsData} className={`next-level btn btn-${this.state.isNextLevelButtonDisabled ? 'secondary' : 'primary'}`} disabled={this.state.isNextLevelButtonDisabled}>Change Birds data</button>
+          {this.state.isGameOver ?
+            <GameOver score={this.state.score} startGameFromBeginning={this.startGameFromBeginning} maxScore={this.defineMaxScore()} /> : (
+            <>
+              <Question questionData={this.state.question} isAnswerCanPicked={this.state.isAnswerCanPicked} />
+              <div className="app-answers-description">
+                <Answers
+                  endLevelWithScore={this.endLevelWithScore}
+                  isNextLevelButtonDisabled={this.state.isNextLevelButtonDisabled}
+                  defineScorePoints={this.defineScorePoints}
+                  defineIsAnswerPickedCorrect={this.defineIsAnswerPickedCorrect}
+                  birdsData={this.state.birdsData}
+                  isAnswerCanPicked={this.state.isAnswerCanPicked}
+                  pickBird={this.pickBird}
+                  changeAnswerColorState={this.changeAnswerColorState}
+                />
+                <Description description={this.state.description} />
+              </div>
+              <button
+                type="button"
+                onClick={this.changeBirdsData}
+                className={`next-level btn btn-${this.state.isNextLevelButtonDisabled ? 'secondary' : 'primary'}`}
+                disabled={this.state.isNextLevelButtonDisabled}
+              >
+                  Change Birds data
+              </button>
+            </>
+            )
+          }
         </div>
       </div>
     );

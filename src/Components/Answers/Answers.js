@@ -1,5 +1,5 @@
 import React from 'react';
-import ListGroup from 'react-bootstrap/ListGroup'
+import ListGroup from 'react-bootstrap/ListGroup';
 
 import successAudio from '../../assets/audio/success-notification.wav';
 import failedAudio from '../../assets/audio/failed-notification.wav';
