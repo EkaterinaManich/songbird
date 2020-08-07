@@ -1,0 +1,8 @@
+.QuestionAudio {
+    margin: 10px;
+    // width: 90%;
+
+    @media screen and (max-width: 320px){
+        width: 95%;
+    }
+}

@@ -9,8 +9,10 @@ export default function Question(props) {
     return (
         <div className="Question">
             <QuestionImg isAnswerCanPicked={props.isAnswerCanPicked} image={props.questionData.image} />
-            <QuestionTitle isAnswerCanPicked={props.isAnswerCanPicked} name={props.questionData.name} />
-            <QuestionAudio audio={props.questionData.audio} />
+            <div>
+                <QuestionTitle isAnswerCanPicked={props.isAnswerCanPicked} name={props.questionData.name} />
+                <QuestionAudio audio={props.questionData.audio} />
+            </div>
         </div>
     );
 }
