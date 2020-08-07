@@ -14,7 +14,7 @@ export default function Answers(props) {
             <ListGroup className="Answers" as="ul">
                 {props.birdsData.map(item => {
                     return (
-                        <ListGroup.Item
+                        <ListGroup.Item className="answers-item"
                             as="li"
                             key={item.id}
                             onClick={() => {
