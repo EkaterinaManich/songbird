@@ -1,5 +1,9 @@
 .Question {
-    height: 200px;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
+    justify-content: center;
+    background: burlywood;
+    border: 5px solid rgb(255, 166, 0);
+    border-radius: 30%;
 }
