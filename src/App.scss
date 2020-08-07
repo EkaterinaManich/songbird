@@ -1,7 +1,7 @@
 .App {
   display: flex;
   justify-content: center;
-  background: rgb(234, 113, 41);
+  background: rgb(236, 174, 80);
 }
 
 .content-wrapper {
@@ -10,6 +10,8 @@
 
 .app-answers-description {
   display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }
 
 .next-level {
