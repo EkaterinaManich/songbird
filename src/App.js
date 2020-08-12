@@ -37,6 +37,7 @@ export default class App extends Component {
         isBirdPicked: false,
         bird: null,
       },
+      isQuestionAudioPlay: null,
     };
   }
 
@@ -174,12 +175,27 @@ export default class App extends Component {
         placeholerText: "Послушайте плеер. Выберите птицу из списка",
         isBirdPicked: false,
         bird: null,
-      }
+      },
+      isQuestionAudioPlay: null,
     })
   }
 
   defineMaxScore = () => {
     return data.length * this.state.maxResultPointsForQuestion;
+  }
+
+  playQuestionAudioPlayer = () => {
+    this.setState({
+      ...this.state,
+      isQuestionAudioPlay: true,
+    })
+  }
+
+  pauseQuestionAudioPlayer = () => {
+    this.setState({
+      ...this.state,
+      isQuestionAudioPlay: false,
+    })
   }
 
   render() {
@@ -194,7 +210,13 @@ export default class App extends Component {
           {this.state.isGameOver ?
             <GameOver score={this.state.score} startGameFromBeginning={this.startGameFromBeginning} maxScore={this.defineMaxScore()} /> : (
             <>
-              <Question questionData={this.state.question} isAnswerCanPicked={this.state.isAnswerCanPicked} />
+              <Question
+                questionData={this.state.question}
+                isAnswerCanPicked={this.state.isAnswerCanPicked}
+                isQuestionAudioPlay={this.state.isQuestionAudioPlay}
+                playQuestionAudioPlayer={this.playQuestionAudioPlayer}
+                pauseQuestionAudioPlayer={this.pauseQuestionAudioPlayer}
+              />
               <div className="app-answers-description">
                 <Answers
                   endLevelWithScore={this.endLevelWithScore}
@@ -205,6 +227,8 @@ export default class App extends Component {
                   isAnswerCanPicked={this.state.isAnswerCanPicked}
                   pickBird={this.pickBird}
                   changeAnswerColorState={this.changeAnswerColorState}
+                  isQuestionAudioPlay={this.state.isQuestionAudioPlay}
+                  pauseQuestionAudioPlayer={this.pauseQuestionAudioPlayer}
                 />
                 <Description description={this.state.description} />
               </div>

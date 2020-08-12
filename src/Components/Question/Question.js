@@ -11,7 +11,13 @@ export default function Question(props) {
             <QuestionImg isAnswerCanPicked={props.isAnswerCanPicked} image={props.questionData.image} />
             <div>
                 <QuestionTitle isAnswerCanPicked={props.isAnswerCanPicked} name={props.questionData.name} />
-                <CustomAudioPlayer customClassName='QuestionAudio' audio={props.questionData.audio} />
+                <CustomAudioPlayer
+                    customClassName='QuestionAudio'
+                    audio={props.questionData.audio}
+                    isQuestionAudioPlay={props.isQuestionAudioPlay}
+                    playQuestionAudioPlayer={props.playQuestionAudioPlayer}
+                    pauseQuestionAudioPlayer={props.pauseQuestionAudioPlayer}
+                />
             </div>
         </div>
     );
