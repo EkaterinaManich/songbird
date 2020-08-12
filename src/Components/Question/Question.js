@@ -3,7 +3,7 @@ import React from "react";
 import "./Question.scss";
 import QuestionImg from "./QuestionImg/QuestionImg";
 import QuestionTitle from "./QuestionTitle/QuestionTitle";
-import QuestionAudio from "./QuestionAudio/QuestionAudio";
+import CustomAudioPlayer from "../CustomAudioPlayer";
 
 export default function Question(props) {
     return (
@@ -11,7 +11,7 @@ export default function Question(props) {
             <QuestionImg isAnswerCanPicked={props.isAnswerCanPicked} image={props.questionData.image} />
             <div>
                 <QuestionTitle isAnswerCanPicked={props.isAnswerCanPicked} name={props.questionData.name} />
-                <QuestionAudio audio={props.questionData.audio} />
+                <CustomAudioPlayer customClassName='QuestionAudio' audio={props.questionData.audio} />
             </div>
         </div>
     );

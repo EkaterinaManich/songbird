@@ -1,0 +1,21 @@
+.QuestionAudio {
+    width: 450px;
+    background-color: #f8a82e;
+}
+
+.DescriptionAudio {
+    width: 280px;
+    background-color: #61d2a9;
+}
+
+.CustomAudioPlayer {
+    margin: 10px;
+    border-radius: 20px;
+    @media screen and (max-width: 600px){
+        width: 300px;
+    }
+
+    @media screen and (max-width: 360px){
+        width: 240px;
+    }
+}
