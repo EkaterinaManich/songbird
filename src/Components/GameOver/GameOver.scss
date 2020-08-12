@@ -1,8 +1,29 @@
+@font-face {
+  font-family: "Lobster-Regular";
+  src: url("../../assets/fonts/Lobster-Regular.ttf") format("truetype");
+}
+
 .GameOver {
-    text-align: center;
-    .congratilation {
-        font-size: 45px;
-        padding: 30px 0;
-        color: rgb(49, 59, 46);
-    }
+  text-align: center;
+
+  .congratilation {
+    font-family: Lobster-Regular, Arial, Helvetica, sans-serif;
+    font-size: 45px;
+    margin: 30px 0;
+    color:#820b16;
+  }
+
+  .game-result {
+    font-size: 25px;
+    margin: 30px 0;
+    color: rgb(14, 15, 66);
+  }
+
+  img {
+    width: 100%;
+    max-width: 480px;
+    display: block;
+    margin: 50px auto;
+    border-radius: 20px;
+  }
 }

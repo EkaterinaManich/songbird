@@ -31,7 +31,7 @@ export default class App extends Component {
       currentArrayWithBirds: 0,
       birdsData: data[0],
       isAnswerCanPicked: true,
-      isGameOver: true,
+      isGameOver: false,
       description: {
         placeholerText: "Послушайте плеер. Выберите птицу из списка",
         isBirdPicked: false,
