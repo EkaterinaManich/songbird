@@ -1,6 +1,7 @@
 import React from 'react';
 
 import './GameOver.scss';
+import congratsImg from '../../assets/img/Congrats.gif'
 
 export default function GameOver({ score, startGameFromBeginning, maxScore }) {
     return (
@@ -8,6 +9,7 @@ export default function GameOver({ score, startGameFromBeginning, maxScore }) {
             <div className="congratilation">Поздравляем!</div>
             <div className="game-result">Вы прошли викторину и набрали {score} из {maxScore} возможных баллов</div>
             {score === maxScore ? <div>Игра закончена</div> : <button onClick={startGameFromBeginning} className="btn btn-success">Попробовать ещё раз!</button>}
+            <img src={congratsImg} alt='Congrats' />
         </div>
     )
 }
