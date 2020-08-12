@@ -24,6 +24,9 @@ export default function Answers(props) {
                                         await props.changeAnswerColorState(item);
                                         if (props.defineIsAnswerPickedCorrect()) {
                                             await props.endLevelWithScore(props.defineScorePoints());
+                                            if(props.isQuestionAudioPlay) {
+                                                props.pauseQuestionAudioPlayer();
+                                            }
                                             successNotification.play();
                                         } else {
                                             failedNotification.play();
